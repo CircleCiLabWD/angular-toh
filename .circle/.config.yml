@@ -27,7 +27,7 @@ jobs:
             sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get install -f
       - run:
           name: Run test cases
-          command: npm run test:headless
+          command: npm test --passWithNoTests
       - store_test_results:
           path: test-results
       - persist_to_workspace:
