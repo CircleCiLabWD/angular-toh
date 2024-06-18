@@ -20,7 +20,7 @@ jobs:
           command: npm run build:prod
       - run:
           name: Install ChromeHeadless
-          command: 
+          command: |
             sudo apt-get update
             sudo apt-get install -y libappindicator1 fonts-liberation libu2f-udev libvulkan1
             wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -37,14 +37,14 @@ jobs:
             - node_modules/
       - run:
           name: install AWS CLI
-          command: 
+          command: |
             sudo apt-get install -y unzip
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             sudo ./aws/install
       - run:
           name: Deploy to S3
-          command: 
+          command: |
             DIST_OUTPUT_DIR=$(find dist -maxdepth 1 -type d | awk 'NR==2')
             aws s3 sync ${DIST_OUTPUT_DIR}/ s3://$S3_BUCKET_NAME --delete
 
