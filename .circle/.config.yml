@@ -25,10 +25,11 @@ jobs:
             sudo apt-get install -y libappindicator1 fonts-liberation libu2f-udev libvulkan1
             wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
             sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get install -f
-            export CHROME_BIN=/usr/bin/google-chrome-stable
       - run:
           name: Run test cases
-          command: npm test --passWithNoTests
+          command: |
+            export CHROME_BIN=/usr/bin/google-chrome-stable
+            npm test --passWithNoTests
       - store_test_results:
           path: test-results
       - persist_to_workspace:
@@ -37,7 +38,7 @@ jobs:
             - dist
             - node_modules/
       - run:
-          name: install AWS CLI
+          name: Install AWS CLI
           command: |
             sudo apt-get install -y unzip
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
