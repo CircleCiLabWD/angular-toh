@@ -19,17 +19,13 @@ jobs:
           name: Building the application
           command: npm run build:prod
       - run:
-          name: Install ChromeHeadless
+          name: Install Firefox
           command: |
             sudo apt-get update
-            sudo apt-get install -y libappindicator1 fonts-liberation libu2f-udev libvulkan1
-            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-            sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get install -f
+            sudo apt-get install -y firefox
       - run:
           name: Run test cases
-          command: |
-            export CHROME_BIN=/usr/bin/google-chrome-stable
-            npm test --passWithNoTests
+          command: npm test --passWithNoTests
       - store_test_results:
           path: test-results
       - persist_to_workspace:
